@@ -31,7 +31,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by kevin on 3/16/15.
@@ -51,16 +50,8 @@ public class ForecastFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         setHasOptionsMenu(true);
 
-        List<String> dummyEntries = new ArrayList<String>();
-        dummyEntries.add("Today - Sunny - 88 / 63");
-        dummyEntries.add("Tomorrow - Foggy - 70 / 46");
-        dummyEntries.add("Weds - Cloudy - 72 / 63");
-        dummyEntries.add("Thurs - Rainy - 64 / 51");
-        dummyEntries.add("Fri - Foggy - 70 / 46");
-        dummyEntries.add("Sat - Sunny - 76 / 68");
-
         mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast
-                , R.id.list_item_forecast_textview, dummyEntries);
+                , R.id.list_item_forecast_textview, new ArrayList<String>());
 
         ListView forecastListVew = (ListView) rootView.findViewById(R.id.listview_forecast);
         forecastListVew.setAdapter(mForecastAdapter);
