@@ -3,9 +3,13 @@ package com.example.android.sunshine.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,7 @@ public class DetailActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -33,6 +38,7 @@ public class DetailActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_detail, menu);
+
         return true;
     }
 
@@ -58,7 +64,10 @@ public class DetailActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        private ShareActionProvider mShareActionProvider;
+
         public PlaceholderFragment() {
+            setHasOptionsMenu(true);
         }
 
         @Override
@@ -89,9 +98,33 @@ public class DetailActivity extends ActionBarActivity {
                 descriptionTextView.setText(description);
                 maxTemperatureTextView.setText(maxTemperature);
                 minTemperatureTextView.setText(minTemperature);
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, forecast + "#SunshineApp");
+                setShareIntent(shareIntent);
             }
 
             return rootView;
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            inflater.inflate(R.menu.detailfragment, menu);
+
+            MenuItem shareItem = menu.findItem(R.id.menu_item_share);
+            mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+
+        }
+
+        private void setShareIntent(Intent intent){
+            if(mShareActionProvider != null){
+                mShareActionProvider.setShareIntent(intent);
+            } else{
+                Log.d("DetailActivity", "ShareActionProvider is null?");
+            }
         }
     }
 }
