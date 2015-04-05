@@ -4,6 +4,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="refresh_label">Refresh</string>
+    <string name="view_location_label">View Location</string>
 
     <string name="title_activity_detail">Details</string>
     <string name="title_activity_settings">Settings</string>
@@ -11,4 +12,12 @@
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_label">Location</string>
     <string name="pref_location_default" translatable="false">94043</string>
+
+    <string name="pref_temperature_units_label">Temperature Units</string>
+    <string name="pref_temperature_units_key" translatable="false">temperature_units</string>
+    <string-array name="pref_temperature_units">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>
+    <string name="pref_temperature_unit_default" translatable="false">Metric</string>
 </resources>

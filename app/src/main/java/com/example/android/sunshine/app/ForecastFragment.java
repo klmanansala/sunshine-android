@@ -81,6 +81,18 @@ public class ForecastFragment extends Fragment {
         if(id == R.id.action_refresh){
             updateWeather();
             return true;
+        } else if(id == R.id.action_view_location){
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String locationValue = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+            Uri geoLocation = Uri.parse("geo:0,0").buildUpon()
+                    .appendQueryParameter("q", locationValue)
+                    .build();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(geoLocation);
+            if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+                startActivity(intent);
+            }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -95,6 +107,26 @@ public class ForecastFragment extends Fragment {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String locationValue = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
         new FetchWeatherTask().execute(locationValue);
+    }
+
+    /**
+     * Prepare the weather high/lows for presentation.
+     */
+    private String formatHighLows(double high, double low) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String temperatureUnitValue = sharedPref.getString(getString(R.string.pref_temperature_units_key), getString(R.string.pref_temperature_unit_default));
+
+        if(!temperatureUnitValue.equals(getString(R.string.pref_temperature_unit_default))){ //if Imperial
+            high = (high * 9/5.0) + 32;
+            low = (low * 9/5.0) + 32;
+        }
+
+        // For presentation, assume the user doesn't care about tenths of a degree.
+        long roundedHigh = Math.round(high);
+        long roundedLow = Math.round(low);
+
+        String highLowStr = roundedHigh + "/" + roundedLow;
+        return highLowStr;
     }
 
     private class FetchWeatherTask extends AsyncTask<String, Void, String[]>{
@@ -213,18 +245,6 @@ public class ForecastFragment extends Fragment {
             // it must be converted to milliseconds in order to be converted to valid date.
             SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
             return shortenedDateFormat.format(time);
-        }
-
-        /**
-         * Prepare the weather high/lows for presentation.
-         */
-        private String formatHighLows(double high, double low) {
-            // For presentation, assume the user doesn't care about tenths of a degree.
-            long roundedHigh = Math.round(high);
-            long roundedLow = Math.round(low);
-
-            String highLowStr = roundedHigh + "/" + roundedLow;
-            return highLowStr;
         }
 
         /**
