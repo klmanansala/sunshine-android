@@ -17,7 +17,9 @@ import android.widget.TextView;
 
 import java.util.StringTokenizer;
 
-
+/**
+Added class comment
+*/
 public class DetailActivity extends ActionBarActivity {
 
     @Override
