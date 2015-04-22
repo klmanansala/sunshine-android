@@ -20,4 +20,5 @@
         <item>Imperial</item>
     </string-array>
     <string name="pref_temperature_unit_default" translatable="false">Metric</string>
+    <string name="pref_temperature_unit_imperial" translatable="false">Imperial</string>
 </resources>
