@@ -2,6 +2,7 @@ package com.example.android.sunshine.app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,11 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.example.android.sunshine.app.data.WeatherContract;
 
 /**
  * Created by kevin on 3/16/15.
@@ -25,7 +24,7 @@ public class ForecastFragment extends Fragment {
 
     private static final String LOG_TAG = ForecastFragment.class.getSimpleName();
 
-    private ArrayAdapter<String> mForecastAdapter;
+    private ForecastAdapter mForecastAdapter;
 
     public ForecastFragment() {
     }
@@ -36,21 +35,30 @@ public class ForecastFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         setHasOptionsMenu(true);
 
-        mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast
-                , R.id.list_item_forecast_textview, new ArrayList<String>());
+        String locationSetting = Utility.getPreferredLocation(getActivity());
+
+        // Sort order:  Ascending, by date.
+        String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
+        Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
+                locationSetting, System.currentTimeMillis());
+
+        Cursor cur = getActivity().getContentResolver().query(weatherForLocationUri,
+                null, null, null, sortOrder);
+
+        mForecastAdapter = new ForecastAdapter(getActivity(), cur, 0);
 
         ListView forecastListVew = (ListView) rootView.findViewById(R.id.listview_forecast);
         forecastListVew.setAdapter(mForecastAdapter);
-        forecastListVew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String dayClicked = mForecastAdapter.getItem(position);
-                //Toast.makeText(getActivity(), dayClicked, Toast.LENGTH_SHORT).show();
-                Intent detailIntent = new Intent(getActivity(), DetailActivity.class)
-                        .putExtra(Intent.EXTRA_TEXT, dayClicked);
-                startActivity(detailIntent);
-            }
-        });
+//        forecastListVew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String dayClicked = mForecastAdapter.getItem(position);
+//                //Toast.makeText(getActivity(), dayClicked, Toast.LENGTH_SHORT).show();
+//                Intent detailIntent = new Intent(getActivity(), DetailActivity.class)
+//                        .putExtra(Intent.EXTRA_TEXT, dayClicked);
+//                startActivity(detailIntent);
+//            }
+//        });
 
         return rootView;
     }
