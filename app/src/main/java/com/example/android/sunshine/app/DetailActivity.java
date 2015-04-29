@@ -158,9 +158,11 @@ public class DetailActivity extends ActionBarActivity{
             TextView descriptionTextView = (TextView) rootView.findViewById(R.id.detail_description);
 
             String date = Utility.formatDate(data.getLong(COL_WEATHER_DATE));
-            String maxTemperature = Utility.formatTemperature(data.getDouble(COL_WEATHER_MAX_TEMP)
+            String maxTemperature = Utility.formatTemperature(getActivity()
+                    ,data.getDouble(COL_WEATHER_MAX_TEMP)
                     , Utility.isMetric(getActivity()));
-            String minTemperature = Utility.formatTemperature(data.getDouble(COL_WEATHER_MIN_TEMP)
+            String minTemperature = Utility.formatTemperature(getActivity()
+                    ,data.getDouble(COL_WEATHER_MIN_TEMP)
                     , Utility.isMetric(getActivity()));
 
             dayTextView.setText(date);
