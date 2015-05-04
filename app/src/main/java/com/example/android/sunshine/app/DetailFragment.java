@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
@@ -35,7 +36,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,
             WeatherContract.WeatherEntry.COLUMN_DEGREES,
             WeatherContract.WeatherEntry.COLUMN_HUMIDITY,
-            WeatherContract.WeatherEntry.COLUMN_PRESSURE
+            WeatherContract.WeatherEntry.COLUMN_PRESSURE,
+            WeatherContract.WeatherEntry.COLUMN_WEATHER_ID
     };
 
     // these constants correspond to the projection defined above, and must change if the
@@ -49,6 +51,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private static final int COL_WEATHER_DEGREES = 6;
     private static final int COL_WEATHER_HUMIDITY = 7;
     private static final int COL_WEATHER_PRESSURE = 8;
+    private static final int COL_WEATHER_STATUS_ID = 9;
 
     private ShareActionProvider mShareActionProvider;
 
@@ -111,6 +114,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         View rootView = getView();
 
+        ImageView iconView = (ImageView) rootView.findViewById(R.id.detail_imageview);
         TextView dayTextView = (TextView) rootView.findViewById(R.id.detail_day_textview);
         TextView dateTextView = (TextView) rootView.findViewById(R.id.detail_date_textview);
         TextView maxTemperatureTextView = (TextView) rootView.findViewById(R.id.detail_max_temperature_textview);
@@ -127,6 +131,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         String minTemperature = Utility.formatTemperature(getActivity()
                 ,data.getDouble(COL_WEATHER_MIN_TEMP)
                 , Utility.isMetric(getActivity()));
+
+        int statusId = data.getInt(COL_WEATHER_STATUS_ID);
+        iconView.setImageResource(Utility.getArtResourceForWeatherCondition(statusId));
 
         dayTextView.setText(Utility.getDayName(getActivity(), date));
         dateTextView.setText(Utility.getFormattedMonthDay(getActivity(), date));
