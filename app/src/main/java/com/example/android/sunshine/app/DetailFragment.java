@@ -73,9 +73,16 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         return f;
     }
 
-    Uri getUriFromArguments(){
-        String uriString = getArguments().getString("uri");
-        return Uri.parse(uriString);
+    Uri getUriPassedToFragment(){
+        Intent intent = getActivity().getIntent();
+        if(getArguments() != null) {
+            String uriString = getArguments().getString("uri");
+            return Uri.parse(uriString);
+        } else if(intent != null && intent.getData() != null){
+            return intent.getData();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -113,9 +120,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v(LOG_TAG, "In onCreateLoader");
-        if(mUri == null && getUriFromArguments() != null) {
-            mUri = getUriFromArguments();
-        } else if (mUri == null && getUriFromArguments() == null){
+        if(mUri == null && getUriPassedToFragment() != null) {
+            mUri = getUriPassedToFragment();
+        } else if (mUri == null && getUriPassedToFragment() == null){
             return null;
         }
 

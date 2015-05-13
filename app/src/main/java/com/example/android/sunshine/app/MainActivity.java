@@ -109,7 +109,7 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         if(mTwoPane){
             DetailFragment details = (DetailFragment) getSupportFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
 
-            if(details == null || !details.getUriFromArguments().equals(dateUri)){
+            if(details == null || !details.getUriPassedToFragment().equals(dateUri)){
                 details = DetailFragment.newInstance(dateUri);
 
                 getSupportFragmentManager().beginTransaction()
@@ -119,7 +119,7 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 
         } else {
             Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra("uri", dateUri.toString());
+            intent.setData(dateUri);
             startActivity(intent);
         }
     }
