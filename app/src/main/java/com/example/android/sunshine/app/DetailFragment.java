@@ -2,6 +2,7 @@ package com.example.android.sunshine.app;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     private static final String LOG_TAG = DetailActivity.class.getSimpleName();
     private static int DETAILS_LOADER_ID = 1;
+
+    private Uri mUri;
 
     private static final String[] FORECAST_COLUMNS = {
             WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry._ID,
@@ -57,6 +60,22 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     public DetailFragment() {
         setHasOptionsMenu(true);
+    }
+
+    public static DetailFragment newInstance(Uri uri) {
+        DetailFragment f = new DetailFragment();
+
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putString("uri", uri.toString());
+        f.setArguments(args);
+
+        return f;
+    }
+
+    Uri getUriFromArguments(){
+        String uriString = getArguments().getString("uri");
+        return Uri.parse(uriString);
     }
 
     @Override
@@ -94,13 +113,14 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v(LOG_TAG, "In onCreateLoader");
-        Intent intent = getActivity().getIntent();
-        if (intent == null || intent.getData() == null) {
+        if(mUri == null && getUriFromArguments() != null) {
+            mUri = getUriFromArguments();
+        } else if (mUri == null && getUriFromArguments() == null){
             return null;
         }
 
         return new CursorLoader(getActivity()
-                , intent.getData()
+                , mUri
                 , FORECAST_COLUMNS
                 , null
                 , null
@@ -167,5 +187,16 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, forecast + " #SunshineApp");
         return shareIntent;
+    }
+
+    void onLocationChanged( String newLocation ) {
+        // replace the uri, since the location has changed
+        Uri uri = mUri;
+        if (null != uri) {
+            long date = WeatherContract.WeatherEntry.getDateFromUri(uri);
+            Uri updatedUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(newLocation, date);
+            mUri = updatedUri;
+            getLoaderManager().restartLoader(DETAILS_LOADER_ID, null, this);
+        }
     }
 }
