@@ -7,6 +7,6 @@
     tools:context=".MainActivity$PlaceholderFragment">
 
     <ListView
-        style="@style/ForecastList"
+        style="@style/ForecastList.SingleChoiceMode"
         android:id="@+id/listview_forecast" />
 </FrameLayout>
