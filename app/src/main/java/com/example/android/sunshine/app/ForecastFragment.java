@@ -200,4 +200,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
          */
         public void onItemSelected(Uri dateUri);
     }
+
+    public void setTwoPaneLayoutIsActive(boolean state){
+        mForecastAdapter.setTwoPaneLayoutIsActive(state);
+    }
 }

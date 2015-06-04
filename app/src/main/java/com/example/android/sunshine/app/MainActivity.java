@@ -33,6 +33,10 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             mTwoPane = false;
             Log.v(LOG_TAG, "NOT in two pane mode");
         }
+
+        ForecastFragment forecastFragment = ((ForecastFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_forecast));
+        forecastFragment.setTwoPaneLayoutIsActive(mTwoPane);
         Log.v(LOG_TAG, "onCreate() is called.");
     }
 
