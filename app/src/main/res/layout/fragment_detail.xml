@@ -47,13 +47,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="18"
-                    android:id="@+id/detail_max_temperature_textview" />
+                    android:id="@+id/detail_max_temperature_textview"
+                    android:textSize="48dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="12"
-                    android:id="@+id/detail_min_temperature_textview"  />
+                    android:id="@+id/detail_min_temperature_textview"
+                    android:textSize="24dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -66,7 +68,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/detail_imageview" />
+                    android:id="@+id/detail_imageview"
+                    android:src="@drawable/art_clear" />
 
                 <TextView
                     android:layout_width="wrap_content"
