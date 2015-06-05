@@ -10,20 +10,18 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="match_parent"
             android:padding="16dp"
             android:gravity="left">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/DayText"
                 android:text="Large Text"
                 android:id="@+id/detail_day_textview" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/DateText"
                 android:text="Small Text"
                 android:id="@+id/detail_date_textview" />
 
@@ -37,34 +35,28 @@
             android:gravity="left">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/HighTempText"
                 android:text="18"
-                android:id="@+id/detail_max_temperature_textview"
-                android:textSize="48dp" />
+                android:id="@+id/detail_max_temperature_textview" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/LowTempText"
                 android:text="12"
                 android:id="@+id/detail_min_temperature_textview"
-                android:textSize="24dp" />
+                android:paddingBottom="16dp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ExtraInfoText"
                 android:text="Medium Text"
                 android:id="@+id/detail_humidity_textview" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ExtraInfoText"
                 android:text="Medium Text"
                 android:id="@+id/detail_wind_textview" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ExtraInfoText"
                 android:text="Medium Text"
                 android:id="@+id/detail_pressure_textview" />
 
@@ -77,15 +69,18 @@
             android:padding="16dp"
             android:gravity="center_horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/detail_imageview"
-                android:src="@drawable/art_clear" />
+            <FrameLayout
+                android:layout_width="144dp"
+                android:layout_height="144dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/detail_imageview"
+                    android:src="@drawable/art_clear" />
+            </FrameLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/DescriptionText"
                 android:text="Medium Text"
                 android:id="@+id/detail_description" />
 

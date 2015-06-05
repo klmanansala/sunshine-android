@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@drawable/touch_selector">
+    android:background="@drawable/today_item_touch_selector"
+    android:paddingLeft="60dp"
+    android:gravity="center_vertical"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="left|center_horizontal"
         android:layout_gravity="center"
         android:layout_weight="1">
 
@@ -17,19 +20,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Today, June 24"
-            android:id="@+id/list_item_date_textview" />
+            android:id="@+id/list_item_date_textview"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="#ffffffff" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="21"
-            android:id="@+id/list_item_high_textview" />
+            android:id="@+id/list_item_high_textview"
+            android:fontFamily="sans-serif-light"
+            android:textSize="72sp"
+            android:textColor="#ffffffff" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8"
-            android:id="@+id/list_item_low_textview" />
+            android:id="@+id/list_item_low_textview"
+            android:fontFamily="sans-serif-light"
+            android:textSize="36sp"
+            android:textColor="#ffffffff"
+            android:paddingLeft="16dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,15 +52,24 @@
         android:gravity="center_horizontal"
         android:layout_weight="1">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/list_item_icon" />
+        <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/list_item_icon"
+                android:src="@drawable/art_clear" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Clear"
-            android:id="@+id/list_item_forecast_textview" />
+            android:id="@+id/list_item_forecast_textview"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="#ffffffff"
+            android:paddingTop="16dp" />
     </LinearLayout>
 </LinearLayout>
