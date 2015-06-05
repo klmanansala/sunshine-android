@@ -23,6 +23,10 @@
         for two-pane layout -->
     </style>
 
+    <!-- Settings activity theme. -->
+    <style name="SettingsTheme" parent="AppTheme">
+    </style>
+
     <style name="ForecastList">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
