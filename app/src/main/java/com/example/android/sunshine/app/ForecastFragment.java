@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
+import com.example.android.sunshine.app.service.SunshineService;
 
 /**
  * Created by kevin on 3/16/15.
@@ -161,7 +162,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private void updateWeather(){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String locationValue = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-        new FetchWeatherTask(getActivity()).execute(locationValue);
+        Intent fetchWeatherIntent = new Intent(getActivity(), SunshineService.class);
+        fetchWeatherIntent.putExtra(SunshineService.LOCATION_PARAMETER, locationValue);
+        getActivity().startService(fetchWeatherIntent);
     }
 
     @Override
