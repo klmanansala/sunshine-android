@@ -1,8 +1,10 @@
 package com.example.android.sunshine.app.service;
 
 import android.app.IntentService;
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -50,7 +52,7 @@ public class SunshineService extends IntentService {
         // Otherwise, insert it using the content resolver and the base URI
         long recordId;
 
-        Cursor cursor = getApplicationContext().getContentResolver().query(WeatherContract.LocationEntry.CONTENT_URI, null
+        Cursor cursor = this.getContentResolver().query(WeatherContract.LocationEntry.CONTENT_URI, null
                 , WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + " = ?"
                 , new String[] {locationSetting}
                 , null);
@@ -64,7 +66,7 @@ public class SunshineService extends IntentService {
             values.put(WeatherContract.LocationEntry.COLUMN_CITY_NAME, cityName);
             values.put(WeatherContract.LocationEntry.COLUMN_COORD_LAT, lat);
             values.put(WeatherContract.LocationEntry.COLUMN_COORD_LONG, lon);
-            Uri returnedUri = getApplicationContext().getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, values);
+            Uri returnedUri = this.getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, values);
             recordId = ContentUris.parseId(returnedUri);
         }
 
@@ -207,7 +209,7 @@ public class SunshineService extends IntentService {
                 // Student: call bulkInsert to add the weatherEntries to the database here
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
-                inserted = getApplicationContext().getContentResolver().bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI
+                inserted = this.getContentResolver().bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI
                         , cvArray);
             }
 
@@ -302,6 +304,16 @@ public class SunshineService extends IntentService {
                     }
                 }
             }
+        }
+    }
+
+    public static class AlarmReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String locationValue = intent.getStringExtra(SunshineService.LOCATION_PARAMETER);
+            Intent fetchWeatherIntent = new Intent(context, SunshineService.class);
+            fetchWeatherIntent.putExtra(SunshineService.LOCATION_PARAMETER, locationValue);
+            context.startService(fetchWeatherIntent);
         }
     }
 }
