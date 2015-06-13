@@ -1,14 +1,10 @@
 package com.example.android.sunshine.app;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,7 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
-import com.example.android.sunshine.app.service.SunshineService;
+import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 /**
  * Created by kevin on 3/16/15.
@@ -164,17 +160,18 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateWeather(){
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String locationValue = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-        Intent fetchWeatherIntent = new Intent(getActivity(), SunshineService.AlarmReceiver.class);
-        fetchWeatherIntent.putExtra(SunshineService.LOCATION_PARAMETER, locationValue);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, fetchWeatherIntent
-                , PendingIntent.FLAG_ONE_SHOT);
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() +
-                        5000, pendingIntent);
+//        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//        String locationValue = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+//        Intent fetchWeatherIntent = new Intent(getActivity(), SunshineService.AlarmReceiver.class);
+//        fetchWeatherIntent.putExtra(SunshineService.LOCATION_PARAMETER, locationValue);
+//
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, fetchWeatherIntent
+//                , PendingIntent.FLAG_ONE_SHOT);
+//        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+//                SystemClock.elapsedRealtime() +
+//                        5000, pendingIntent);
+        SunshineSyncAdapter.syncImmediately(getActivity());
     }
 
     @Override
