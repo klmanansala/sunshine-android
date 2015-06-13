@@ -160,17 +160,19 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateWeather(){
-//        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//        String locationValue = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-//        Intent fetchWeatherIntent = new Intent(getActivity(), SunshineService.AlarmReceiver.class);
-//        fetchWeatherIntent.putExtra(SunshineService.LOCATION_PARAMETER, locationValue);
-//
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, fetchWeatherIntent
-//                , PendingIntent.FLAG_ONE_SHOT);
-//        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-//                SystemClock.elapsedRealtime() +
-//                        5000, pendingIntent);
+        /*
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String locationValue = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        Intent fetchWeatherIntent = new Intent(getActivity(), SunshineService.AlarmReceiver.class);
+        fetchWeatherIntent.putExtra(SunshineService.LOCATION_PARAMETER, locationValue);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, fetchWeatherIntent
+                , PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() +
+                        5000, pendingIntent);
+        */
         SunshineSyncAdapter.syncImmediately(getActivity());
     }
 
