@@ -127,9 +127,9 @@ public class Utility {
                 .equals(context.getString(R.string.pref_temperature_unit_default));
     }
 
-    static String formatTemperature(Context context, double temperature, boolean isMetric) {
+    public static String formatTemperature(Context context, double temperature) {
         double temp;
-        if ( !isMetric ) {
+        if ( !isMetric(context) ) {
             temp = 9*temperature/5+32;
         } else {
             temp = temperature;

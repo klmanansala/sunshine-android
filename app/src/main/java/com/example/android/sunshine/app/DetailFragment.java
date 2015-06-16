@@ -153,11 +153,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         Long date = data.getLong(COL_WEATHER_DATE);
         String maxTemperature = Utility.formatTemperature(getActivity()
-                ,data.getDouble(COL_WEATHER_MAX_TEMP)
-                , Utility.isMetric(getActivity()));
+                ,data.getDouble(COL_WEATHER_MAX_TEMP));
+
         String minTemperature = Utility.formatTemperature(getActivity()
-                ,data.getDouble(COL_WEATHER_MIN_TEMP)
-                , Utility.isMetric(getActivity()));
+                ,data.getDouble(COL_WEATHER_MIN_TEMP));
 
         int statusId = data.getInt(COL_WEATHER_STATUS_ID);
         iconView.setImageResource(Utility.getArtResourceForWeatherCondition(statusId));
