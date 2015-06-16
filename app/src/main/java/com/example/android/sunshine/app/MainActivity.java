@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
+
 
 public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback{
 
@@ -38,6 +40,8 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         ForecastFragment forecastFragment = ((ForecastFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_forecast));
         forecastFragment.setTwoPaneLayoutIsActive(mTwoPane);
+
+        SunshineSyncAdapter.initializeSyncAdapter(this);
         Log.v(LOG_TAG, "onCreate() is called.");
     }
 

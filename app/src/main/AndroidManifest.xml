@@ -48,8 +48,11 @@
             android:name=".data.WeatherProvider"
             android:exported="false"
             android:syncable="true" />
+
+        <!-- This is for using the SunshineService and AlarmReceiver, this was replaced by using SyncAdapter
         <service android:name=".service.SunshineService" />
         <receiver android:name=".service.SunshineService$AlarmReceiver" android:enabled="true"/>
+        -->
 
         <service
             android:name=".sync.SunshineAuthenticatorService"
