@@ -18,4 +18,11 @@
         android:entries="@array/pref_temperature_units"
         android:entryValues="@array/pref_temperature_units"/>
 
+    <CheckBoxPreference
+        android:key="@string/pref_notification_key"
+        android:title="@string/pref_notification_label"
+        android:defaultValue="@string/pref_enable_notifications_default"
+        android:summaryOn="@string/pref_enable_notifications_true"
+        android:summaryOff="@string/pref_enable_notifications_false"/>
+
 </PreferenceScreen>
