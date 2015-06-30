@@ -11,7 +11,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -113,13 +112,13 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         if(mShareActionProvider != null){
             mShareActionProvider.setShareIntent(intent);
         } else{
-            Log.d("DetailActivity", "ShareActionProvider is null?");
+            //Log.d("DetailActivity", "ShareActionProvider is null?");
         }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.v(LOG_TAG, "In onCreateLoader");
+        //Log.v(LOG_TAG, "In onCreateLoader");
         if(mUri == null && getUriPassedToFragment() != null) {
             mUri = getUriPassedToFragment();
         } else if (mUri == null && getUriPassedToFragment() == null){
@@ -136,7 +135,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.v(LOG_TAG, "In onLoadFinished");
+        //Log.v(LOG_TAG, "In onLoadFinished");
         if (!data.moveToFirst()) { return; }
 
         View rootView = getView();

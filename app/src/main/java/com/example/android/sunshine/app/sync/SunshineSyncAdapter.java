@@ -23,7 +23,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.text.format.Time;
-import android.util.Log;
 
 import com.example.android.sunshine.app.DetailActivity;
 import com.example.android.sunshine.app.R;
@@ -72,7 +71,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        Log.d(LOG_TAG, "onPerformSync Called.");
+        //Log.d(LOG_TAG, "onPerformSync Called.");
         String locationQuery = Utility.getPreferredLocation(getContext());
 
         // These two need to be declared outside the try/catch
@@ -137,12 +136,12 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             forecastJsonStr = buffer.toString();
             getWeatherDataFromJson(forecastJsonStr, locationQuery);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error ", e);
+            //Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attemping
             // to parse it.
         } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
+            //Log.e(LOG_TAG, e.getMessage(), e);
+            //e.printStackTrace();
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -151,7 +150,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 try {
                     reader.close();
                 } catch (final IOException e) {
-                    Log.e(LOG_TAG, "Error closing stream", e);
+                    //Log.e(LOG_TAG, "Error closing stream", e);
                 }
             }
         }
@@ -333,7 +332,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                         , cvArray);
             }
 
-            Log.d(LOG_TAG, "Get weather data completed via SunshineSyncAdapter. " + inserted + " Inserted");
+            //Log.d(LOG_TAG, "Get weather data completed via SunshineSyncAdapter. " + inserted + " Inserted");
             notifyWeather();
 
             //delete older data
@@ -346,12 +345,12 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             int deletedRows = getContext().getContentResolver().delete(WeatherContract.WeatherEntry.CONTENT_URI
                     , selectionString
                     , new String[] {Long.toString(dayTime.setJulianDay(julianStartDay - 1))});
-            Log.d(LOG_TAG, "Weather data deleted for date = " + Utility.formatDate(dateBeforeToday) + ". "
-                    + deletedRows + " Deleted");
+            //Log.d(LOG_TAG, "Weather data deleted for date = " + Utility.formatDate(dateBeforeToday) + ". "
+            //        + deletedRows + " Deleted");
 
         } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
+            //Log.e(LOG_TAG, e.getMessage(), e);
+            //e.printStackTrace();
         }
 
     }

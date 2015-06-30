@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.format.Time;
-import android.util.Log;
 
 import com.example.android.sunshine.app.data.WeatherContract;
 
@@ -213,11 +212,11 @@ public class SunshineService extends IntentService {
                         , cvArray);
             }
 
-            Log.d(LOG_TAG, "SunshineService Complete. " + inserted + " Inserted");
+            //Log.d(LOG_TAG, "SunshineService Complete. " + inserted + " Inserted");
 
         } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
+            //Log.e(LOG_TAG, e.getMessage(), e);
+            //e.printStackTrace();
         }
 
     }
@@ -286,12 +285,12 @@ public class SunshineService extends IntentService {
                 forecastJsonStr = buffer.toString();
                 getWeatherDataFromJson(forecastJsonStr, locationQuery);
             } catch (IOException e) {
-                Log.e(LOG_TAG, "Error ", e);
+                //Log.e(LOG_TAG, "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attemping
                 // to parse it.
             } catch (JSONException e) {
-                Log.e(LOG_TAG, e.getMessage(), e);
-                e.printStackTrace();
+                //Log.e(LOG_TAG, e.getMessage(), e);
+                //e.printStackTrace();
             } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
@@ -300,7 +299,7 @@ public class SunshineService extends IntentService {
                     try {
                         reader.close();
                     } catch (final IOException e) {
-                        Log.e(LOG_TAG, "Error closing stream", e);
+                        //Log.e(LOG_TAG, "Error closing stream", e);
                     }
                 }
             }
