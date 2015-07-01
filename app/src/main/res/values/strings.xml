@@ -60,7 +60,7 @@
     <!-- Account type (for sync-adapter authenticator) -->
     <!-- SyncAdapter related -->
     <string name="sync_account_type">sunshine.example.com</string>
-    <string name="content_authority">com.example.android.sunshine.app</string>
+    <string name="content_authority">klmanansala.apps.sunshineph.app</string>
 
     <!-- Notification Format -->
     <string name="format_notification">

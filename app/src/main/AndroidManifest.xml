@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.sunshine.app" >
+    package="klmanansala.apps.sunshineph.app" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Permissions required by the sync adapter -->
@@ -32,7 +32,7 @@
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.sunshine.app.MainActivity" />
+                android:value="klmanansala.apps.sunshineph.app.MainActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -41,7 +41,7 @@
             android:theme="@style/SettingsTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.sunshine.app.MainActivity" />
+                android:value="klmanansala.apps.sunshineph.app.MainActivity" />
         </activity>
         <provider
             android:authorities="@string/content_authority"
