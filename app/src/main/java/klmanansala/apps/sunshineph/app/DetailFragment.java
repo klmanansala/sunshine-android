@@ -172,7 +172,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         pressureTextView.setText(getActivity().getString(R.string.format_pressure
                 , data.getFloat(COL_WEATHER_PRESSURE)));
 
-        String forecast = date +
+        String forecast = Utility.getDayName(getActivity(), date) +
                 " - " + data.getString(COL_WEATHER_DESC) +
                 " - " + maxTemperature + " / " + minTemperature;
 
